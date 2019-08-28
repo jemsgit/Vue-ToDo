@@ -1,4 +1,3 @@
-const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -15,10 +14,25 @@ module.exports = {
         {
          test: /\.vue$/,
          loader: 'vue-loader'
-       }
+       },
+       {
+        test: /\.css$/,
+        use: [
+          'vue-style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              // включаем CSS модули
+              modules: true,
+              // настраиваем генерируемое имя класса
+              localIdentName: '[local]'
+            }
+          }
+        ]
+      }
       ]
    },
-   devtool: 'eval-source-map',
+   devtool: 'cheap-module-eval-sourcemap',
    resolve: {
       alias: {
         'vue$': 'vue/dist/vue.esm.js'
